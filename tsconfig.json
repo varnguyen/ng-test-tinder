@@ -4,17 +4,44 @@
 
   To learn more about this file see: https://angular.io/config/solution-tsconfig.
 */
+// {
+//   "files": [],
+//   "references": [
+//     {
+//       "path": "./tsconfig.app.json"
+//     },
+//     {
+//       "path": "./tsconfig.spec.json"
+//     },
+//     {
+//       "path": "./e2e/tsconfig.json"
+//     }
+// ]
+// }
 {
-  "files": [],
-  "references": [
-    {
-      "path": "./tsconfig.app.json"
-    },
-    {
-      "path": "./tsconfig.spec.json"
-    },
-    {
-      "path": "./e2e/tsconfig.json"
-    }
-]
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
+    "sourceMap": true,
+    "declaration": false,
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "target": "es2015",
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "lib": [
+      "es2018",
+      "dom"
+    ]
+  },
+  "angularCompilerOptions": {
+    "enableIvy": false,
+    "fullTemplateTypeCheck": true,
+    "strictInjectionParameters": true
+  }
 }
