@@ -1,22 +1,50 @@
 <section class="home">
-    <div class="box">
-        <div class="box-detail">
-            <div class="box-detail__img">
-                <a href="javascript:void(0);" (click)="getNewUser()" class="refresh">New</a>
-                <img src="https://randomuser.me/api/portraits/men/25.jpg" alt="avatar">
+
+    <h2 class="text-center mb-5 title">RANDOM USER GENERATOR</h2>
+
+    <div class="loading text-center" *ngIf="loading">
+        <img src="assets/images/loading.gif" alt="loading">
+    </div>
+
+    <div swing-stack [stackConfig]="stackConfig" #myswing (throwout)="onThrowOut($event)">
+        <div swing-card #mycards *ngFor="let user of users;" id="profile" class="profile-item">
+            <div class="box">
+                <div class="box-detail">
+                    <div class="box-detail__img">
+                        <a href="javascript:void(0);" (click)="getNewUser()" class="refresh">New</a>
+                        <img [src]="user.picture.large" (error)="$event.target.src=user.defaultAvatar" alt="avatar">
+                    </div>
+                    <p class="box-detail__title">{{title}}</p>
+                    <p class="box-detail__value">{{value}}</p>
+                </div>
+                <div class="box-action">
+                    <ul class="values_list">
+                        <li [class.active]="index === 0" id="0" title="Hi, My name is" [attr.data-value]="user.fullName"
+                            mouseoverCatcher (passData)="changeView($event)">
+                            <i class="far fa-user"></i>
+                        </li>
+                        <li [class.active]="index === 1" id="1" title="My email address is"
+                            [attr.data-value]="user.email" mouseoverCatcher (passData)="changeView($event)">
+                            <i class="far fa-envelope"></i>
+                        </li>
+                        <li [class.active]="index === 2" id="2" title="My birthday is"
+                            [attr.data-value]="user.dob.date | date:'dd/MM/yyyy'" mouseoverCatcher
+                            (passData)="changeView($event)"><i class="fas fa-birthday-cake"></i>
+                        </li>
+                        <li [class.active]="index === 3" id="3" title="My address is"
+                            [attr.data-value]="user.fullAddress" mouseoverCatcher (passData)="changeView($event)"><i
+                                class="fas fa-map-marked-alt"></i>
+                        </li>
+                        <li [class.active]="index === 4" id="4" title="My phone number is"
+                            [attr.data-value]="user.phone" mouseoverCatcher (passData)="changeView($event)"><i
+                                class="fas fa-phone-alt"></i></li>
+                        <li [class.active]="index === 5" id="5" title="My password is"
+                            [attr.data-value]="user.login.password" mouseoverCatcher (passData)="changeView($event)"><i
+                                class="fas fa-lock"></i>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <p class="box-detail__title">My name is</p>
-            <p class="box-detail__value">Carrie Barrett</p>
-        </div>
-        <div class="box-action">
-            <ul class="values_list">
-                <li class="active"><i class="far fa-user"></i></li>
-                <li class=" "><i class="far fa-envelope"></i></li>
-                <li class=" "><i class="fas fa-birthday-cake"></i></li>
-                <li class=" "><i class="fas fa-map-marked-alt"></i></li>
-                <li class=" "><i class="fas fa-phone-alt"></i></li>
-                <li class=" "><i class="fas fa-lock"></i></li>
-            </ul>
         </div>
     </div>
 </section>

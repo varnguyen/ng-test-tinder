@@ -1,1 +1,30 @@
-<p>favorite-list works!</p>
+<section class="favorite-list">
+    <h2 class="mb-3">Favorite List</h2>
+
+    <div *ngIf="users.length === 0" class="data-empty">Không có dữ liệu</div>
+
+    <div class="row" *ngIf="users.length > 0">
+        <div class="col-md-4 col-lg-3 mb-3" *ngFor="let user of users">
+            <div class="card box-user">
+                <img class="card-img-top" [src]="user.picture.large" alt="avatar">
+                <div class="card-body box-content">
+                    <h5 class="card-title text-center">{{user.fullName}}</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <i class="fas fa-phone-alt"></i> : {{user.phone}}
+                        </li>
+                        <li class="list-group-item">
+                            <i class="fas fa-birthday-cake"></i> : {{user.dob.date | date:'dd/MM/yyyy'}}
+                        </li>
+                        <li class="list-group-item">
+                            <i class="far fa-envelope"></i> : {{user.email}}
+                        </li>
+                        <li class="list-group-item">
+                            <i class="fas fa-map-marked-alt"></i> : {{user.fullAddress}}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
