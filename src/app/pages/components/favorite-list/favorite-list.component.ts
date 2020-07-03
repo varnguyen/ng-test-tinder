@@ -23,4 +23,9 @@ export class FavoriteListComponent implements OnInit {
         this.users = this.users.map(user => new User().deserialize(user));
     }
 
+    deleteAllUser() {
+        localStorage.clear();
+        this.users = [];
+    }
+
 }

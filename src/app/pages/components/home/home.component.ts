@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, Directive, ViewChild, ViewChildren, QueryList } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewChildren, QueryList } from '@angular/core';
 import {
     Direction,
     StackConfig,
@@ -18,7 +18,7 @@ import { User } from 'src/app/models';
 
 export class HomeComponent implements OnInit {
 
-    @ViewChild('myswing', { static: true }) swingStack: SwingStackComponent;
+    @ViewChild('myswing') swingStack: SwingStackComponent;
     @ViewChildren('mycards') swingCards: QueryList<SwingCardComponent>;
     stackConfig: StackConfig;
 
@@ -38,9 +38,9 @@ export class HomeComponent implements OnInit {
             allowedDirections: [Direction.LEFT, Direction.RIGHT, Direction.DOWN, Direction.UP],
             // Now need to send offsetX and offsetY with element instead of just offset
             throwOutConfidence: (offsetX, offsetY, element) => {
-                return Math.round(
-                    Math.abs(offsetX) / (element.offsetWidth / 2)
-                );
+                const xConfidence = Math.abs(offsetX) / (element.offsetWidth / 1.7);
+                const yConfidence = Math.abs(offsetY) / (element.offsetHeight / 2);
+                return Math.min(Math.max(xConfidence, yConfidence), 1);
             },
             throwOutDistance: (d) => {
                 return 800;
@@ -110,8 +110,13 @@ export class HomeComponent implements OnInit {
     }
 
     getNewUser(): void {
-        this.loading = true;
+
+        if (this.loading) {
+            return;
+        }
+
         this.users = [];
+        this.loading = true;
 
         this.homeService.getNewUser().subscribe(
             (response) => {

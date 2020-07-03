@@ -1,9 +1,12 @@
 <section class="favorite-list">
     <h2 class="mb-3">Favorite List</h2>
 
+    <button class="btn btn-danger mb-3" (click)="deleteAllUser()">Delete All</button>
+
     <div *ngIf="users.length === 0" class="data-empty">Không có dữ liệu</div>
 
     <div class="row" *ngIf="users.length > 0">
+
         <div class="col-md-4 col-lg-3 mb-3" *ngFor="let user of users">
             <div class="card box-user">
                 <img class="card-img-top" [src]="user.picture.large" alt="avatar">
